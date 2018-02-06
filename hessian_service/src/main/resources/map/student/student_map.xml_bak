@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="student_map">
+    <resultMap id="BaseResultMap" type="com.pojo.student.Student">
+         <id column="s_id" property="id" jdbcType="INTEGER"/>
+            <result column="s_name" property="name" jdbcType="VARCHAR"/>
+            <result column="s_gender" property="gender" jdbcType="VARCHAR"/>
+            <result column="s_major" property="major" jdbcType="VARCHAR"/>
+            <result column="s_grade" property="grade" jdbcType="VARCHAR"/>
+        <association property="teacher" javaType="com.pojo.teacher.Teacher">
+            <id column="id" property="id" jdbcType="INTEGER"/>
+            <result column="name" property="name" jdbcType="VARCHAR"/>
+            <result column="gender" property="gender" jdbcType="VARCHAR"/>
+            <result column="researchArea" property="researchArea" jdbcType="VARCHAR"/>
+            <result column="title" property="title" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+
+
+    <resultMap id="BaseResultMap1" type="com.pojo.student.Student">
+         <id column="s_id" property="id" jdbcType="INTEGER"/>
+            <result column="s_name" property="name" jdbcType="VARCHAR"/>
+            <result column="s_gender" property="gender" jdbcType="VARCHAR"/>
+            <result column="s_major" property="major" jdbcType="VARCHAR"/>
+            <result column="s_grade" property="grade" jdbcType="VARCHAR"/>
+        <association property="profile" javaType="com.pojo.profile.Profile">
+            <id column="p_id" property="id" jdbcType="INTEGER"/>
+            <result column="phone_num" property="phoneNum" jdbcType="VARCHAR"/>
+            <result column="e_mail" property="eMail" jdbcType="VARCHAR"/>
+        </association>
+    </resultMap>
+
+   <!--  association 一对一  一个学生对应一个老师-->
+    <select id="selectStuById" parameterType="com.pojo.student.Student" resultMap="BaseResultMap">
+      select t.id ,t.name ,t.gender,t.researchArea,t.title,s.s_id,s.s_name,s.s_gender,s.s_major,s.s_grade
+         from teacher_tbl t ,student_tbl s
+         where t.id = s.teacher_id
+         and s.s_id =#{id};
+    </select>
+
+    <select id="selectStuAndProfile" parameterType="com.pojo.student.Student" resultMap="BaseResultMap1" >
+        select p.p_id,p.phone_num,p.e_mail,s.s_id,s.s_name,s.s_gender,s.s_major,s.s_grade
+         from profile_tbl p ,student_tbl s
+         where p.p_id = s.s_id
+         and s.s_id =#{id};
+    </select>
+
+
+</mapper>

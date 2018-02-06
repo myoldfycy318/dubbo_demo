@@ -1,0 +1,11 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="addSer" class="org.springframework.remoting.caucho.HessianProxyFactoryBean">
+        <property name="serviceUrl" value="http://localhost:8081/hessian_service/remoting/addService" />
+        <property name="serviceInterface" value="com.service.AddService" />
+        <!-- By default the value is false. As a matter of fact, it doesn't influence the test result, the overloaded method still be supported -->
+        <property name="overloadEnabled" value="false" />
+    </bean>
+</beans>

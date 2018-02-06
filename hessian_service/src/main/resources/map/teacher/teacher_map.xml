@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="teacher_map">
+    <resultMap id="BaseResultMap" type="com.pojo.teacher.Teacher">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="gender" property="gender" jdbcType="VARCHAR"/>
+        <result column="researchArea" property="researchArea" jdbcType="VARCHAR"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <!--
+           collection，对应javabean中容器类型, 是实现一对多的关键
+           property 为javabean中容器对应字段名
+           column 为体现在数据库中列名
+           ofType 就是指定javabean中容器指定的类型
+       -->
+        <collection property="students"  column="teacher_id" ofType="com.pojo.student.Student">
+            <id column="s_id" property="id" jdbcType="INTEGER"/>
+            <result column="s_name" property="name" jdbcType="VARCHAR"/>
+            <result column="s_gender" property="gender" jdbcType="VARCHAR"/>
+            <result column="s_major" property="major" jdbcType="VARCHAR"/>
+            <result column="s_grade" property="grade" jdbcType="VARCHAR"/>
+        </collection>
+    </resultMap>
+
+    <!--collection  一对多   一个老师对应多个学生-->
+    <select id="selectTeacherById" parameterType="com.pojo.teacher.Teacher" resultMap="BaseResultMap">
+         select t.id ,t.name ,t.gender,t.researchArea,t.title,s.s_id,s.s_name,s.s_gender,s.s_major,s.s_grade
+         from teacher_tbl t ,student_tbl s
+         where t.id = s.teacher_id
+         and t.id = #{id}
+    </select>
+
+</mapper>

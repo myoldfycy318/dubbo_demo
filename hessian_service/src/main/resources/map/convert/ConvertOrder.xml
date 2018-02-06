@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="CONVERT_ORDER">
+    <resultMap id="BaseResultMap" type="com.pojo.convert.ConvertOrder">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="order_num" property="orderNum" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="wait_audit" property="waitAudit" jdbcType="VARCHAR"/>
+        <result column="credits" property="credits" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="face_price" property="facePrice" jdbcType="VARCHAR"/>
+        <result column="actual_price" property="actualPrice" jdbcType="VARCHAR"/>
+        <result column="ip" property="ip" jdbcType="VARCHAR"/>
+        <result column="crate_time" property="crateTime" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="params" property="params" jdbcType="VARCHAR"/>
+        <result column="back1" property="back1" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="desc" property="desc"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, user_id, order_num, status, wait_audit, credits, type, face_price,
+      actual_price, ip, crate_time, update_time, params, back1,description
+  </sql>
+    <!-- 查询条件  -->
+    <sql id="Base_Query_Column_List">
+        <if test=" id != null">
+            and id = #{id,jdbcType=INTEGER}
+        </if>
+        <if test="userId != null">
+            and user_id= #{userId,jdbcType=INTEGER}
+        </if>
+        <if test="orderNum != null">
+            and order_num= #{orderNum,jdbcType=VARCHAR}
+        </if>
+        <if test="status != null">
+            and status= #{status,jdbcType=INTEGER}
+        </if>
+        <if test="waitAudit != null">
+            and wait_audit= #{waitAudit,jdbcType=VARCHAR}
+        </if>
+        <if test="credits != null">
+            and credits= #{credits,jdbcType=VARCHAR}
+        </if>
+        <if test="type != null">
+            and type= #{type,jdbcType=VARCHAR}
+        </if>
+        <if test="facePrice != null">
+            and face_price= #{facePrice,jdbcType=VARCHAR}
+        </if>
+        <if test="actualPrice != null">
+            and actual_price= #{actualPrice,jdbcType=VARCHAR}
+        </if>
+        <if test="ip != null">
+            and ip= #{ip,jdbcType=VARCHAR}
+        </if>
+        <if test="crateTime != null">
+            and crate_time= #{crateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="updateTime != null">
+            and update_time= #{updateTime,jdbcType=TIMESTAMP}
+        </if>
+        <if test="params != null">
+            and params= #{params,jdbcType=VARCHAR}
+        </if>
+        <if test="back1 != null">
+            and back1= #{back1,jdbcType=VARCHAR}
+        </if>
+        <if test="description != null">
+            and back1= #{back1,jdbcType=VARCHAR}
+        </if>
+    </sql>
+
+    <select id="selectListByParams" resultMap="BaseResultMap"
+            parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        from t_convert_order
+        where 1=1
+        <include refid="Base_Query_Column_List"/>
+    </select>
+
+    <select id="selectOrderbyOrderId" resultMap="BaseResultMap" parameterType="com.pojo.convert.ConvertOrder">
+        select
+        <include refid="Base_Column_List"/>
+        from t_convert_order t
+        where order_num = #{orderNum}
+    </select>
+
+    <insert id="insertSelective" parameterType="com.pojo.convert.ConvertOrder">
+        insert into t_convert_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            id,
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="orderNum != null">
+                order_num,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="waitAudit != null">
+                wait_audit,
+            </if>
+            <if test="credits != null">
+                credits,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="facePrice != null">
+                face_price,
+            </if>
+            <if test="actualPrice != null">
+                actual_price,
+            </if>
+            <if test="ip != null">
+                ip,
+            </if>
+            <if test="crateTime != null">
+                crate_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="params != null">
+                params,
+            </if>
+            <if test="back1 != null">
+                back1,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{id},
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="orderNum != null">
+                #{orderNum,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="waitAudit != null">
+                #{waitAudit,jdbcType=VARCHAR},
+            </if>
+            <if test="credits != null">
+                #{credits,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="facePrice != null">
+                #{facePrice,jdbcType=VARCHAR},
+            </if>
+            <if test="actualPrice != null">
+                #{actualPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="ip != null">
+                #{ip,jdbcType=VARCHAR},
+            </if>
+            <if test="crateTime != null">
+                #{crateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="params != null">
+                #{params,jdbcType=VARCHAR},
+            </if>
+            <if test="back1 != null">
+                #{back1,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+        </trim>
+        <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+
+    </insert>
+    <update id="updateOrderStatus" parameterType="com.pojo.convert.ConvertOrder">
+        update t_convert_order
+        <set>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+        </set>
+        where order_num = #{orderNum}
+    </update>
+
+
+    <select id="queryMap" resultType="java.util.HashMap">
+     	select order_num from t_convert_order
+  </select>
+
+</mapper>

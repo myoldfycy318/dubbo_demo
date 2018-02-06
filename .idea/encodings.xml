@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" useUTFGuessing="true" native2AsciiForPropertiesFiles="false">
+    <file url="file://F:/company/qianbao/code/dome-sdkserver/mgr/target/classes/domain.properties" charset="UTF-8" />
+    <file url="file://F:/company/qianbao/code/dome-sdkserver/mgr/target/classes/jdbc.properties" charset="UTF-8" />
+    <file url="file://F:/company/qianbao/code/dome-sdkserver/mgr/target/classes/redis.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hessian_client" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hessian_intf" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hessian_service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hessian_service/src/main/java/com/comm/utils/RedisUtil.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hessian_service/src/main/resources/conf/redis.properties" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hessian_service/src/main/resources/config/redis-config.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hessian_service/src/main/resources/spring/security-config.xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hessian_service/src/main/webapp/WEB-INF/view/login.jsp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/hessian_service/src/main/webapp/WEB-INF/view/loginDetail.jsp" charset="UTF-8" />
+  </component>
+</project>

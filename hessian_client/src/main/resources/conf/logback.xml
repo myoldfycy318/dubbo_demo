@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="1 minutes" debug="false">
+
+    <!--
+        Logback可以通过编程式配置，或用XML格式的配置文件进行配置。
+        Logback采取下面的步骤进行自我配置：
+        1. 尝试在classpath下查找文件logback-test.xml；
+        2. 如果文件不存在，则查找文件logback.xml；
+        3. 如果两个文件都不存在，logback用BasicConfigurator自动对自己进行配置，这会导致记录输出到控制台。
+        -->
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <Target>System.out</Target>
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%-5level] [%logger.%M:%L] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="rolling"
+              class="ch.qos.logback.core.FileAppender">
+        <file>/var/log/sdkserver/sdk_app.log</file>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%-5level] [%logger.%M:%L] |%msg%n</pattern>
+        </encoder>
+        <charset>UTF-8</charset>
+    </appender>
+    <!-- 异步输出 -->
+    <appender name="async_rolling" class="ch.qos.logback.classic.AsyncAppender">
+        <!-- 不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 -->
+        <discardingThreshold>0</discardingThreshold>
+        <!-- 更改默认的队列的深度,该值会影响性能.默认值为256 -->
+        <queueSize>512</queueSize>
+        <!-- 添加附加的appender,最多只能添加一个 -->
+        <appender-ref ref="rolling"/>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="stdout"/>
+        <!--<appender-ref ref="async_rolling"/>-->
+    </root>
+
+    <logger name="com." level="INFO"/>
+    <logger name="com.ibatis" level="ERROR"/>
+    <logger name="org.springframework" level="debug"/>
+    <logger name="com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate" level="ERROR"/>
+    <logger name="org.apache.commons" level="ERROR"/>
+    <logger name="catalia" level="ERROR"/>
+    <logger name="org.apache" level="ERROR"/>
+    <logger name="com.ibatis.common.jdbc.SimpleDataSource" level="ERROR"/>
+    <logger name="java.sql.ResultSet" level="ERROR"/>
+    <logger name="com.ibatis.common.jdbc.ScriptRunner" level="ERROR"/>
+    <logger name="java.sql.Connection" level="ERROR"/>
+    <logger name="java.sql.PreparedStatement" level="ERROR"/>
+
+</configuration>

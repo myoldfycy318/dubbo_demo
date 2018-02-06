@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:amq="http://activemq.apache.org/schema/core"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://activemq.apache.org/schema/core
+	http://activemq.apache.org/schema/core/activemq-core-5.5.0.xsd">
+	<!-- ActiveMQ connectionFactory -->
+	<amq:connectionFactory id="jmsConnectionFactory" brokerURL="tcp://192.168.20.3:61616" />
+
+    <!--  ActiveMQ destinations  -->
+   <!--  使用topic方式-->
+	<amq:queue name="DEOM_QUEUE" physicalName="ActiveMQ.DEOM_QUEUE" />
+	<amq:topic name="DEOM_TOPIC" physicalName="ActiveMQ.DEOM_TOPIC" />
+
+
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<property name="connectionFactory">
+			<bean class="org.springframework.jms.connection.SingleConnectionFactory">
+				<property name="targetConnectionFactory" ref="jmsConnectionFactory" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- producer begin -->
+	<bean id="messageProducer" class="com.mq.producer.queue.MessageProducer">
+		<property name="jmsTemplate" ref="jmsTemplate" />
+		<property name="destination" ref="DEOM_QUEUE" />
+	</bean>
+
+    <bean id="topicProducer" class="com.mq.producer.topic.TopicProducer">
+		<property name="jmsTemplate" ref="jmsTemplate" />
+		<property name="destination" ref="DEOM_TOPIC" />
+	</bean>
+
+	<!-- producer end -->
+
+<!-- listener container begin -->
+	<bean id="queueListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="jmsConnectionFactory" />
+		<property name="destination" ref="DEOM_QUEUE" />
+		<property name="messageListener" ref="queueListener" />
+		<!--
+		<property name="concurrentConsumers" value="5" />
+		<property name="maxConcurrentConsumers" value="20" />
+		-->
+	</bean>
+    <bean id="topicListenerContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="jmsConnectionFactory" />
+		<property name="destination" ref="DEOM_TOPIC" />
+		<property name="messageListener" ref="topicListener" />
+		<!--
+		<property name="concurrentConsumers" value="5" />
+		<property name="maxConcurrentConsumers" value="20" />
+		-->
+	</bean>
+	<!-- listener container end -->
+
+	<!-- listener begin -->
+	<bean id="queueListener" class="org.springframework.jms.listener.adapter.MessageListenerAdapter">
+		<constructor-arg ref="messageConsumer" />
+		<property name="defaultListenerMethod" value="receive" />
+	</bean>
+    <bean id="topicListener" class="org.springframework.jms.listener.adapter.MessageListenerAdapter">
+		<constructor-arg ref="topicConsumer1" />
+		<property name="defaultListenerMethod" value="receive" />
+	</bean>
+	<!-- listener end -->
+
+
+
+</beans>

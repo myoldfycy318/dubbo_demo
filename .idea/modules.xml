@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/hessian_client/hessian_client.iml" filepath="$PROJECT_DIR$/hessian_client/hessian_client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/hessian_demo.iml" filepath="$PROJECT_DIR$/.idea/hessian_demo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hessian_intf/hessian_intf.iml" filepath="$PROJECT_DIR$/hessian_intf/hessian_intf.iml" />
+      <module fileurl="file://$PROJECT_DIR$/hessian_service/hessian_service.iml" filepath="$PROJECT_DIR$/hessian_service/hessian_service.iml" />
+    </modules>
+  </component>
+</project>
